@@ -1,3 +1,4 @@
 export interface LayoutProps {
-    span: Number;
+    span?: Number;
+    children?: JSX.Element;
 }

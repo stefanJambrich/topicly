@@ -5,7 +5,18 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "var(--primary-color)",
+        "secondary": "var(--secondary-color)",
+        "secondary-light": "var(--secondary-color-light)",
+        "secondary-dark": "var(--secondary-color-dark)"
+      },
+      textColor: {
+        current: "var(--current-text-color)",
+        accent: "var(--accent-text-color)"
+      }
+    }
   },
   plugins: [],
 }
