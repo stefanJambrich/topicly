@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-color: #1C1C1C;
+    --separataor-color: #444;
+    --secondary-color: #D12D7B;
+    --secondary-color-light: #EA539A;
+    --secondary-color-dark: #98128B;
+    --current-text-color: #FFF;
+    --accent-text-color: #BBB;
+  }
+  
+  .theme-dark {
+    --primary-color: #1C1C1C;
+    --separataor-color: #444;
+    --current-text-color: #FFF;
+    --accent-text-color: #BBB;
+  }
+  
+  .theme-light {
+    --primary-color: #ffffff;
+    --separataor-color: #AAA;
+    --current-text-color: #000;
+    --accent-text-color: #444;
+  }
+
+  .theme-color-magenta {
+    --secondary-color: #D12D7B;
+    --secondary-color-light: #EA539A;
+    --secondary-color-dark: #98128B;
+  }
+
+  .theme-color-blue {
+    --secondary-color: #0e6fa3;
+    --secondary-color-light: #7f8ae3;
+    --secondary-color-dark: #2733d2;
+  }
+}
+
+@layer components {
+  .bg-gradient {
+    @apply bg-gradient-to-br from-secondary-light to-secondary-dark
+  }
+  .nav-selected {
+    @apply bg-gradient bg-clip-text
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
