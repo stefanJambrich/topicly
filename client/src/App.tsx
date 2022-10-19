@@ -5,7 +5,8 @@ import { Main, Navbar, SideBar } from "./components";
 
 function App() {
   return (
-    <div className="theme-dark theme-color-magenta bg-primary text-current min-h-screen grid grid-cols-12 gap-10">
+    <div className="theme-dark theme-color-magenta bg-primary text-current min-h-screen 
+    flex gap-10">
       <Navbar />
       <Main>
         <Routes>
