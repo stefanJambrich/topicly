@@ -1,6 +1,6 @@
 #search-icon-outline{
-  box-shadow: 0 0 0 10px var(--primary-color),
-              0 0 0 12px var(--separataor-color);
+  box-shadow: 0 0 0 15px var(--primary-color),
+              0 0 0 17px var(--separataor-color);
   position: absolute;
   height: 100%;
   width: 100%;
@@ -14,7 +14,7 @@
   position: absolute;
   top: -20px;
   left: 29px;
-  width: 40px;
+  width: 50px;
   height: 100px;
   background-color: var(--primary-color);
   /* background-color: red; */

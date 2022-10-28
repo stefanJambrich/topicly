@@ -14,7 +14,7 @@ const Navbar = ({ span }: LayoutProps) => {
   return (
     <nav
       className="col-span-1 
-    flex flex-col justify-between py-4 px-2
+    flex flex-col justify-between py-4 px-4
     border-r-2 border-separator"
     >
       <img
@@ -28,7 +28,7 @@ const Navbar = ({ span }: LayoutProps) => {
           <IoIosSend size={30} className="text-current" />
         </div>
 
-        <div className="absolute top-1/2 left-5 -translate-y-1/2 rounded-full">
+        <div className="absolute top-1/2 left-7 -translate-y-1/2 rounded-full">
           <div
             className="rounded-full bg-gradient p-3
             grid place-items-center"
