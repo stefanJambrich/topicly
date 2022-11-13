@@ -4,18 +4,16 @@ export const sequelize = new Sequelize(
     'topicly',
     `${process.env.DB_USERNAME}`,
     `${process.env.DB_PASS}`, {
-        host: 'aws.connect.psdb.cloud',
+        host: 'localhost',
         dialect: 'mysql',
         dialectOptions: {
-            ssl: {
-                require: true,
-                rejectUnauthorized: false
-            }
+            ssl: false
         },
     }
 );
 
 const User = require('./model/user.model');
+const Trending = require('./model/trending.model');
  
 (async () => {
     try {
@@ -27,6 +25,6 @@ const User = require('./model/user.model');
 })();
 
 (async () => {
-    await sequelize.sync({ force: true });
+    await sequelize.sync({force: true});
     console.log('juch')
 })();
