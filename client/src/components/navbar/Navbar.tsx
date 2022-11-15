@@ -13,8 +13,7 @@ import "./style.css";
 const Navbar = ({ span }: LayoutProps) => {
   return (
     <nav
-      className="col-span-1 
-    flex flex-col justify-between py-4 px-4
+      className="flex flex-col justify-between py-4 px-4
     border-r-2 border-separator"
     >
       <img
