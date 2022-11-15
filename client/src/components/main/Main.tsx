@@ -1,9 +1,9 @@
 import React from "react";
 import { LayoutProps } from "../../interfaces/LayoutProps.interface";
 
-const Main = ({ span, children }: LayoutProps) => {
+const Main = ({ children }: LayoutProps) => {
   return (
-    <main className="col-span-9">{children}</main>
+    <main className="flex-auto">{children}</main>
   );
 };
 

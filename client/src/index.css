@@ -4,33 +4,35 @@
 
 @layer base {
   :root {
-    --primary-color: #1C1C1C;
+    --primary-color: #1c1c1c;
+    --primary-accent-color: #2a2a2a;
+    --primary-accent-2-color: #2f2f2f;
     --separataor-color: #444;
-    --secondary-color: #D12D7B;
-    --secondary-color-light: #EA539A;
-    --secondary-color-dark: #98128B;
-    --current-text-color: #FFF;
-    --accent-text-color: #BBB;
+    --secondary-color: #d12d7b;
+    --secondary-color-light: #ea539a;
+    --secondary-color-dark: #98128b;
+    --current-text-color: #fff;
+    --accent-text-color: #bbb;
   }
-  
+
   .theme-dark {
-    --primary-color: #1C1C1C;
+    --primary-color: #1c1c1c;
     --separataor-color: #444;
-    --current-text-color: #FFF;
-    --accent-text-color: #BBB;
+    --current-text-color: #fff;
+    --accent-text-color: #bbb;
   }
-  
+
   .theme-light {
     --primary-color: #ffffff;
-    --separataor-color: #AAA;
+    --separataor-color: #aaa;
     --current-text-color: #000;
     --accent-text-color: #444;
   }
 
   .theme-color-magenta {
-    --secondary-color: #D12D7B;
-    --secondary-color-light: #EA539A;
-    --secondary-color-dark: #98128B;
+    --secondary-color: #d12d7b;
+    --secondary-color-light: #ea539a;
+    --secondary-color-dark: #98128b;
   }
 
   .theme-color-blue {
@@ -42,13 +44,23 @@
 
 @layer components {
   .bg-gradient {
-    @apply bg-gradient-to-br from-secondary-light to-secondary-dark
+    @apply bg-gradient-to-br from-secondary-light to-secondary-dark;
   }
   .nav-selected {
-    @apply bg-gradient bg-clip-text
+    @apply bg-gradient bg-clip-text;
+  }
+  .button-login {
+    @apply text-center px-5 py-2 rounded flex-1;
+  }
+  .input {
+    @apply bg-primary-accent outline-none border-2 border-separator px-5 py-2 rounded w-full;
+  }
+  .bg-text-login {
+    @apply absolute select-none font-semibold text-[30rem] text-transparent bg-clip-text bg-gradient;
   }
 }
 
 * {
   box-sizing: border-box;
+  overflow: hidden;
 }

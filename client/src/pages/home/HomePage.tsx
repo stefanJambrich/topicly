@@ -1,9 +1,15 @@
 import React from "react";
+import { Navbar, SideBar } from "../../components";
 
 const HomePage = () => {
   return (
-    <div>
-      Home Page
+    <div className="flex h-screen w-screen">
+      
+      <Navbar />
+      aaa
+      <SideBar>
+        <p className="text-center text-secondary">Side bar</p>
+      </SideBar>
     </div>
   );
 };

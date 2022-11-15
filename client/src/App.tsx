@@ -1,24 +1,19 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { HomePage, LoginPage, RegisterPage, UserPage } from "./pages";
+import { HomePage, LoginPage, UserPage } from "./pages";
 import { Main, Navbar, SideBar } from "./components";
 
 function App() {
   return (
-    <div className="theme-dark theme-color-magenta bg-primary text-current min-h-screen 
-    flex gap-10">
-      <Navbar />
-      <Main>
-        <Routes>
-          <Route index element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/:userId" element={<UserPage />} />
-        </Routes>
-      </Main>
-      <SideBar>
-        <p className="text-center text-secondary">Side bar</p>
-      </SideBar>
+    <div
+      className="theme-dark theme-color-magenta bg-primary text-current min-h-screen"
+    >
+      <Routes>
+        <Route index element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<LoginPage />} />
+        <Route path="/:userId" element={<UserPage />} />
+      </Routes>
     </div>
   );
 }
