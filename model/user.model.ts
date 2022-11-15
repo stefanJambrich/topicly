@@ -16,6 +16,7 @@ const User = sequelize.define("user", {
     lastName: STRING(64),
     nickname: STRING(64),
     email: STRING(255),
+    password: STRING(255),
     description: TEXT
 });
 
