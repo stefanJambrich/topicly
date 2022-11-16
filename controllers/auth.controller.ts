@@ -1,11 +1,47 @@
 import { Request, Response } from "express";
+const bcrypt = require('bcrypt');
+const User = require('../model/user.model');
+const jwt = require('jsonwebtoken');
+const tokenList: any = {};
 
-export const login = (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response) => {
+    interface User {
+        email: string,
+        password: string
+    }
+
+    const { email, password } = req.body as User;
+    const user = await User.findOne({
+        where: {
+            email: email
+        }
+    });
+
+    if(!user) {
+        return res.status(404).send('User with that email doesnt exist');
+    }
+
+    bcrypt.compare(password, user.password, (err: string, result: string) => {
+        if(!result) {
+            return res.status(403).send('Incorrect password');
+        }
+
+        const token = jwt.sign(user, process.env.SECRET, { expiresIn: process.env.TOKEN_EXPIRATION });
+        const refreshToken = jwt.sign(user, process.env.REFRESH_SECRET, { expiresIn: process.env.REFRESH_EXPIRATION });
+        const response = {
+            "status": "Logged in",
+            "token": token,
+            "refreshToken": refreshToken
+        }
+        tokenList[refreshToken] = response;
+        
+        return res.status(200).send(response);
+    })
 
 }
 
-export const register = (req: Request, res: Response) => {
-    interface User {
+export const register = async (req: Request, res: Response) => {
+    interface IUser {
         firstName: string,
         lastName: string,
         nickname: string,
@@ -13,17 +49,37 @@ export const register = (req: Request, res: Response) => {
         password: string
     }
 
-    const { firstName, lastName, nickname, email, password } = req.body as User;
-    const passRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    let { firstName, lastName, nickname, email, password } = req.body as IUser;
+    const passRegex = /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{7,}$/;
+    const userCheck = await User.findOne({
+        where: {
+            email: email
+        }
+    })
+
+    if(userCheck) {
+        return res.status(409).send('User with that email already exists');
+    }
 
     if (!firstName || !lastName || !nickname || !email || !password) {
-        res.status(400).send('Missing info');
+        return res.status(400).send('Missing info');
     }
 
     if (!passRegex.test(password)) {
-        res.status(400).send('Password is not valid');
+        return res.status(400).send('Password is not valid');
     }
-
+   
+    await bcrypt.hash(password, 10, async (err: string, result: string) => {
+        const user = await User.create({
+            firstName: firstName,
+            lastName: lastName,
+            nickname: nickname,
+            email: email,
+            password: result
+        });
     
+        await User.sync();
+        return res.status(200).send("User created succesfully!");
+    });
 }
 
