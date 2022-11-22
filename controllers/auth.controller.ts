@@ -17,12 +17,12 @@ export const login = async (req: Request, res: Response) => {
         }
     });
 
-    if(!user) {
+    if (!user) {
         return res.status(404).send('User with that email doesnt exist');
     }
 
     bcrypt.compare(password, user.password, (err: string, result: string) => {
-        if(!result) {
+        if (!result) {
             return res.status(403).send('Incorrect password');
         }
 
@@ -34,7 +34,7 @@ export const login = async (req: Request, res: Response) => {
             "refreshToken": refreshToken
         }
         tokenList[refreshToken] = response;
-        
+
         return res.status(200).send(response);
     })
 
@@ -57,7 +57,7 @@ export const register = async (req: Request, res: Response) => {
         }
     })
 
-    if(userCheck) {
+    if (userCheck) {
         return res.status(409).send('User with that email already exists');
     }
 
@@ -68,7 +68,7 @@ export const register = async (req: Request, res: Response) => {
     if (!passRegex.test(password)) {
         return res.status(400).send('Password is not valid');
     }
-   
+
     await bcrypt.hash(password, 10, async (err: string, result: string) => {
         const user = await User.create({
             firstName: firstName,
@@ -77,9 +77,31 @@ export const register = async (req: Request, res: Response) => {
             email: email,
             password: result
         });
-    
+
         await User.sync();
         return res.status(200).send("User created succesfully!");
     });
 }
 
+export const token = (req: Request, res: Response) => {
+    const data = req.body;
+
+    if (!data.refreshToken && !(data.refreshToken in tokenList)) {
+        return res.status(404).send('Invalid or missing token')
+    }
+    if (!data.userId || !data.username) {
+        return res.status(400).send('Missing userId and nickname')
+    }
+
+    const user = {
+        "userId": data.userId,
+        "username": data.nickname
+    }
+    const token = jwt.sign(user, process.env.SECRET, { expiresIn: process.env.TOKEN_EXPIRATION });
+    const response = {
+        "token": token
+    }
+
+    tokenList[data.refreshToken].token = token;
+    res.status(200).send('Token refreshed successfully');
+}
