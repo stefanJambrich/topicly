@@ -21,6 +21,7 @@ export const createPost = async (req: Request, res: Response) => {
     const data = req.body;
 
     if (!data) return res.status(400).send('Missing post content');
+    if (!data.userId) return res.status(400).send('Missing user UUID    ')
 
     const user = await User.findOne({
         where: {
@@ -35,9 +36,9 @@ export const createPost = async (req: Request, res: Response) => {
         picture: data.picture,
         description: data.description,
         like: data.like,
-        userId: user
+        userId: user.id
     });
 
-    await post.sync();
-    return res.status(200).send('User created successfully');
+    await Post.sync();
+    return res.status(200).send('Post created successfully');
 }

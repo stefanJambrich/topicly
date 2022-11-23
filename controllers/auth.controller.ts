@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 const bcrypt = require('bcrypt');
 const User = require('../model/user.model');
 const jwt = require('jsonwebtoken');
-const tokenList: any = {};
+let tokenList: any = {};
 
 export const login = async (req: Request, res: Response) => {
     interface User {
@@ -10,24 +10,24 @@ export const login = async (req: Request, res: Response) => {
         password: string
     }
 
-    const { email, password } = req.body as User;
+    const data = req.body as User;
     const user = await User.findOne({
         where: {
-            email: email
+            email: data.email
         }
     });
 
     if (!user) {
-        return res.status(404).send('User with that email doesnt exist');
+        return res.status(404).send('User with that email desnt exist');
     }
 
-    bcrypt.compare(password, user.password, (err: string, result: string) => {
+    bcrypt.compare(data.password, user.password, (err: string, result: string) => {
         if (!result) {
             return res.status(403).send('Incorrect password');
         }
 
-        const token = jwt.sign(user, process.env.SECRET, { expiresIn: process.env.TOKEN_EXPIRATION });
-        const refreshToken = jwt.sign(user, process.env.REFRESH_SECRET, { expiresIn: process.env.REFRESH_EXPIRATION });
+        const token = jwt.sign(user.dataValues, process.env.SECRET, { expiresIn: process.env.TOKEN_EXPIRATION });
+        const refreshToken = jwt.sign(user.dataValues, process.env.REFRESH_SECRET, { expiresIn: process.env.REFRESH_EXPIRATION });
         const response = {
             "status": "Logged in",
             "token": token,
@@ -81,6 +81,11 @@ export const register = async (req: Request, res: Response) => {
         await User.sync();
         return res.status(200).send("User created succesfully!");
     });
+}
+
+export const logout = async (req: Request, res: Response) => {
+    tokenList = {};
+    return res.status(200).send('Successfully logged out')
 }
 
 export const token = (req: Request, res: Response) => {
