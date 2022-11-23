@@ -7,8 +7,7 @@ export const authorize = (req: Request, res: Response, next: NextFunction) => {
     if (!token) return res.status(403).send('No token was provided');
 
     jwt.verify(token, process.env.SECRET, (err: string, decoded: string) => {
-        if (err) return res.status(401).send('Unathuorized access')
-
-        
+        if (err) return res.status(401).send('Unathuorized access');
+        next();
     })
 }
