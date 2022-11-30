@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api/auth', authRouter);
-app.use(authorize);
+//app.use(authorize);
 
 app.use('/api/post', postRouter)
 
