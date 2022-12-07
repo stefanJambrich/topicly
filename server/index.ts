@@ -15,6 +15,7 @@ const authRouter = require('./routes/auth.route');
 const postRouter = require('./routes/post.route');
 const searchRouter = require('./routes/search.route');
 const userRouter = require('./routes/user.route');
+const bookmarkRouter = require('./routes/bookmark.route');
 
 app.use(express.json());
 app.use(cors());
@@ -32,6 +33,7 @@ app.use(isLoggedIn);
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
 app.use('/api/search', searchRouter);
+app.use('/api/bookmark', bookmarkRouter);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
