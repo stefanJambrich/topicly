@@ -26,8 +26,8 @@ app.use(session({
 }));
 
 app.use('/api/auth', authRouter);
-//app.use(authorize);
-//app.use(isLoggedIn);
+app.use(authorize);
+app.use(isLoggedIn);
 
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
