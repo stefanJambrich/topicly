@@ -1,25 +1,19 @@
 import { Request, Response } from "express";
 import { Op } from "sequelize";
 
-const Post = require('../model/post.model');
+const User = require('../model/user.model');
 
-export const search =async (req: Request, res: Response) => {
-    const data = req.body;
+export const search = async (req: Request, res: Response) => {
+    const data = req.query.search;
 
     if(!data) ('No data was provided');
 
-    const searchResult = await Post.findAll({
+    const searchResult = await User.findAll({
         where: {
             [Op.or]: [
-                {[Op.like]: {
-                    firstName: {[Op.like]: `%${data}%`}
-                }},
-                {[Op.like]: {
-                    lastName: {[Op.like]: `%${data}%`}
-                }},
-                {[Op.like]: {
-                    nickname: {[Op.like]: `%${data}%`}
-                }}
+                {firstName: {[Op.like]: `%${data}%`}},
+                {lastName: {[Op.like]: `%${data}%`}},
+                {nickname: {[Op.like]: `%${data}%`}}
             ]
         }
     })
