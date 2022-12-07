@@ -26,6 +26,7 @@ export const login = async (req: Request, res: Response) => {
             return res.status(403).send('Incorrect password');
         }
 
+        req.session.loggedIn = true;
         const token = jwt.sign(user.dataValues, process.env.SECRET, { expiresIn: process.env.TOKEN_EXPIRATION });
         const refreshToken = jwt.sign(user.dataValues, process.env.REFRESH_SECRET, { expiresIn: process.env.REFRESH_EXPIRATION });
         const response = {
@@ -85,6 +86,7 @@ export const register = async (req: Request, res: Response) => {
 
 export const logout = async (req: Request, res: Response) => {
     tokenList = {};
+    req.session.loggedIn = false;
     return res.status(200).send('Successfully logged out')
 }
 
