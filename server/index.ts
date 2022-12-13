@@ -1,6 +1,5 @@
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
-import { isLoggedIn } from './middleware/loggedIn.middleware';
 
 dotenv.config();
 
@@ -8,6 +7,7 @@ const app: Express = express();
 const port = process.env.PORT;
 const cors = require('cors');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const db = require('./db.connector');
 const authorize = require('./middleware/authorize.middleware');
@@ -19,16 +19,11 @@ const bookmarkRouter = require('./routes/bookmark.route');
 
 app.use(express.json());
 app.use(cors());
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {}
-}));
+app.use(cookieParser());
 
 app.use('/api/auth', authRouter);
+
 app.use(authorize);
-app.use(isLoggedIn);
 
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
