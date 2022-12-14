@@ -11,12 +11,6 @@ interface Post {
     like: number
 }
 
-export const getAllPosts = async (req: Request, res: Response) => {
-    const posts = await Post.findAll();
-
-    return res.status(200).send(JSON.stringify(posts));
-}
-
 export const createPost = async (req: Request, res: Response) => {
     const data = req.body;
 

@@ -2,12 +2,6 @@ import { Request, Response } from "express";
 
 const Bookmark = require('../model/bookmark.model');
 
-export const getAllBookmarks = async (req: Request, res: Response) => {
-    const bookmarks = await Bookmark.findAll();
-
-    return res.status(200).send(JSON.stringify(bookmarks));
-}
-
 export const newBookmark = async (req: Request, res: Response) => {
     const data = req.body;
 

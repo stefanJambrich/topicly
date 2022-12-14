@@ -1,4 +1,7 @@
+import UserType from "./user.type";
+
 const graphql = require('graphql');
+const User = require('../../model/user.model');
 
 const {
     GraphQLObjectType,
@@ -17,7 +20,13 @@ const PostType = new GraphQLObjectType({
         title: { type: GraphQLString },
         picture: { type: GraphQLString },
         description: { type: GraphQLString },
-        like: { type: GraphQLInt }
+        like: { type: GraphQLInt },
+        user: {
+            type: UserType,
+            resolve(parent: any, args: any) {
+                return User.findOne({ where: { userId: parent.userId } })
+            }
+        }
     })
 })
 
