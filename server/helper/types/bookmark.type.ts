@@ -10,9 +10,11 @@ const {
     GraphQLNonNull,
 } = graphql;
 
-const BookmarkType = GraphQLObjectType({
+const BookmarkType = new GraphQLObjectType({
     name: "Bookmark",
     fields: () => ({
-        
+        bookmarkId: { type: GraphQLString }
     })
 })
+
+export default BookmarkType;

@@ -8,8 +8,10 @@ const port = process.env.PORT;
 const cors = require('cors');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const { graphqlHTTP } = require('express-graphql');
 
 const db = require('./db.connector');
+const graphql = require('./helper/graphql.helper');
 const authorize = require('./middleware/authorize.middleware');
 const authRouter = require('./routes/auth.route');
 const postRouter = require('./routes/post.route');
@@ -29,6 +31,10 @@ app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
 app.use('/api/search', searchRouter);
 app.use('/api/bookmark', bookmarkRouter);
+app.use('/graphql', graphqlHTTP({
+  schema: graphql,
+  graphiql: true
+}));  
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
