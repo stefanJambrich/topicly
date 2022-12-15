@@ -25,6 +25,6 @@ const Trending = require('./model/trending.model');
 })();
 
 (async () => {
-    await sequelize.sync();
+    await sequelize.sync({force: true});
     console.log('juch');
 })();

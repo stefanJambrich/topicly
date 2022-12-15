@@ -4,7 +4,7 @@ import { sequelize } from '../db.connector';
 const Post = require('./post.model');
 const Story = require('./story.model');
 const Bookmark = require('./bookmark.model');
-const Followers = require('./followers.model');
+const Follower = require('./follower.model');
 
 const User = sequelize.define("user", {
     userId: {
@@ -18,12 +18,14 @@ const User = sequelize.define("user", {
     email: STRING(255),
     password: STRING(255),
     description: TEXT
+}, {
+    timestamps: false
 });
 
 User.hasMany(Post);
 User.hasMany(Story);
-User.hasMany(Followers);
-Followers.hasMany(User);
+User.hasMany(Follower);
+Follower.hasOne(User);
 
 User.hasOne(Bookmark);
 Post.hasOne(Bookmark);
@@ -32,7 +34,10 @@ Post.belongsTo(User);
 Story.belongsTo(User);
 Bookmark.belongsTo(User);
 Bookmark.belongsTo(Post);
-Followers.belongsTo(User);
-User.belongsTo(Followers);
+Follower.belongsTo(User);
+User.belongsTo(Follower, {
+    foreignKey: 'followerId',
+    as: 'follower'
+});
 
 module.exports = User;

@@ -8,6 +8,8 @@ const Story = sequelize.define('story', {
         allowNull: false
     },
     picture: STRING(255)
+}, {
+    timestamps: false
 })
 
 module.exports = Story;
