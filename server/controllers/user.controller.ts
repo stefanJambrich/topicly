@@ -11,20 +11,6 @@ interface IUser {
     description: string
 }
 
-export const getUser = async (req: Request, res: Response) => {
-    const { userId } = req.params;
- 
-    const user = await User.findOne({
-        where: {
-            userId: userId
-        }
-    });
-
-    if (!user) return res.status(404).send('Invalid user');
-
-    return res.status(200).send(JSON.stringify(user));
-}
-
 export const editUser = async(req: Request, res: Response) => {
     const data = req.body as IUser;
     const {userId} = req.params;

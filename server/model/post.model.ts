@@ -11,6 +11,8 @@ const Post = sequelize.define("post", {
     picture: STRING,
     description: TEXT,
     like: INTEGER
+}, {
+    timestamps: false
 })
 
 module.exports = Post;

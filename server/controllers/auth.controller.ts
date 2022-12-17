@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 const bcrypt = require('bcrypt');
 const User = require('../model/user.model');
 const jwt = require('jsonwebtoken');
-let tokenList: any = {};
 
 export const login = async (req: Request, res: Response) => {
     interface User {
@@ -26,17 +25,9 @@ export const login = async (req: Request, res: Response) => {
             return res.status(403).send('Incorrect password');
         }
 
-        req.session.loggedIn = true;
         const token = jwt.sign(user.dataValues, process.env.SECRET, { expiresIn: process.env.TOKEN_EXPIRATION });
-        const refreshToken = jwt.sign(user.dataValues, process.env.REFRESH_SECRET, { expiresIn: process.env.REFRESH_EXPIRATION });
-        const response = {
-            "status": "Logged in",
-            "token": token,
-            "refreshToken": refreshToken
-        }
-        tokenList[refreshToken] = response;
 
-        return res.status(200).send(response);
+        res.status(200).cookie("token", token, {httpOnly: true}).send("Succesfully logged in");
     })
 
 }
@@ -85,30 +76,20 @@ export const register = async (req: Request, res: Response) => {
 }
 
 export const logout = async (req: Request, res: Response) => {
-    tokenList = {};
-    req.session.loggedIn = false;
-    return res.status(200).send('Successfully logged out')
+    res.clearCookie('token');
+    return res.status(200).send('Successfully logged out');
 }
 
-export const token = (req: Request, res: Response) => {
-    const data = req.body;
+export const authorization = (req: Request, res: Response) => {
+    const token = req.cookies.token;
 
-    if (!data.refreshToken && !(data.refreshToken in tokenList)) {
-        return res.status(404).send('Invalid or missing token')
+    if (!token) {
+      return res.status(403).json('No token');
     }
-    if (!data.userId || !data.username) {
-        return res.status(400).send('Missing userId and nickname')
+    try {
+      const data = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      return res.status(200).send(data);
+    } catch {
+      return res.status(403);
     }
-
-    const user = {
-        "userId": data.userId,
-        "username": data.nickname
-    }
-    const token = jwt.sign(user, process.env.SECRET, { expiresIn: process.env.TOKEN_EXPIRATION });
-    const response = {
-        "token": token
-    }
-
-    tokenList[data.refreshToken].token = token;
-    res.status(200).send('Token refreshed successfully');
 }

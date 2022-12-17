@@ -7,6 +7,8 @@ const Bookmark = sequelize.define('bookmark', {
         defaultValue: UUIDV4,
         allowNull: false
     },
+}, {
+    timestamps: false
 });
 
 module.exports = Bookmark;
