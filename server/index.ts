@@ -18,6 +18,7 @@ const postRouter = require('./routes/post.route');
 const searchRouter = require('./routes/search.route');
 const userRouter = require('./routes/user.route');
 const bookmarkRouter = require('./routes/bookmark.route');
+const followerRouter = require('./routes/follower.route');
 
 app.use(express.json());
 app.use(cors());
@@ -31,6 +32,7 @@ app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
 app.use('/api/search', searchRouter);
 app.use('/api/bookmark', bookmarkRouter);
+app.use('/api/follow', followerRouter);
 app.use('/graphql', graphqlHTTP({
   schema: graphql,
   graphiql: true

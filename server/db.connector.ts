@@ -14,7 +14,7 @@ export const sequelize = new Sequelize(
 
 const User = require('./model/user.model');
 const Trending = require('./model/trending.model');
- 
+
 (async () => {
     try {
         await sequelize.authenticate();
@@ -25,6 +25,6 @@ const Trending = require('./model/trending.model');
 })();
 
 (async () => {
-    await sequelize.sync({force: true});
+    await sequelize.sync();
     console.log('juch');
 })();

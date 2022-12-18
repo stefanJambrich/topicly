@@ -24,8 +24,15 @@ const User = sequelize.define("user", {
 
 User.hasMany(Post);
 User.hasMany(Story);
-User.hasMany(Follower);
-Follower.hasOne(User);
+User.hasMany(Follower, {
+    foreignKey: 'followerId'
+});
+Follower.belongsTo(User);
+
+Follower.hasOne(User, {
+    foreignKey: 'followerId'
+});
+User.belongsTo(Follower)
 
 User.hasOne(Bookmark);
 Post.hasOne(Bookmark);
@@ -34,10 +41,5 @@ Post.belongsTo(User);
 Story.belongsTo(User);
 Bookmark.belongsTo(User);
 Bookmark.belongsTo(Post);
-Follower.belongsTo(User);
-User.belongsTo(Follower, {
-    foreignKey: 'followerId',
-    as: 'follower'
-});
 
 module.exports = User;
