@@ -1,4 +1,4 @@
-import express, { Express } from 'express';
+import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -20,14 +20,16 @@ const userRouter = require('./routes/user.route');
 const bookmarkRouter = require('./routes/bookmark.route');
 const followerRouter = require('./routes/follower.route');
 
+const Follower = require('./model/followers.model');
+const User = require('./model/user.model');
+
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
 app.use('/api/auth', authRouter);
 
-app.use(authorize);
-
+//app.use(authorize);
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
 app.use('/api/search', searchRouter);
@@ -36,7 +38,7 @@ app.use('/api/follow', followerRouter);
 app.use('/graphql', graphqlHTTP({
   schema: graphql,
   graphiql: true
-}));  
+}));
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);

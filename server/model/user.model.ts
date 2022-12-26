@@ -5,8 +5,9 @@ const Post = require('./post.model');
 const Story = require('./story.model');
 const Bookmark = require('./bookmark.model');
 const Follower = require('./follower.model');
+const UserFollower = require('./userFollower.model');
 
-const User = sequelize.define("user", {
+const User = sequelize.define("usersTable", {
     userId: {
         type: UUID,
         defaultValue: UUIDV4,
@@ -24,15 +25,7 @@ const User = sequelize.define("user", {
 
 User.hasMany(Post);
 User.hasMany(Story);
-User.hasMany(Follower, {
-    foreignKey: 'followerId'
-});
-Follower.belongsTo(User);
-
-Follower.hasOne(User, {
-    foreignKey: 'followerId'
-});
-User.belongsTo(Follower)
+User.hasOne(Follower);
 
 User.hasOne(Bookmark);
 Post.hasOne(Bookmark);
@@ -41,5 +34,9 @@ Post.belongsTo(User);
 Story.belongsTo(User);
 Bookmark.belongsTo(User);
 Bookmark.belongsTo(Post);
+Follower.belongsTo(User);
+
+User.belongsToMany(Follower, { through: UserFollower });
+Follower.belongsToMany(User, { through: UserFollower });
 
 module.exports = User;
