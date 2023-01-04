@@ -6,6 +6,7 @@ const Story = require('./story.model');
 const Bookmark = require('./bookmark.model');
 const Follower = require('./follower.model');
 const UserFollower = require('./userFollower.model');
+const Comment = require('./comment.model');
 
 const User = sequelize.define("usersTable", {
     userId: {
@@ -25,8 +26,8 @@ const User = sequelize.define("usersTable", {
 
 User.hasMany(Post);
 User.hasMany(Story);
+Post.hasMany(Comment);
 User.hasOne(Follower);
-
 User.hasOne(Bookmark);
 Post.hasOne(Bookmark);
 
@@ -35,6 +36,7 @@ Story.belongsTo(User);
 Bookmark.belongsTo(User);
 Bookmark.belongsTo(Post);
 Follower.belongsTo(User);
+Comment.belongsTo(Post);
 
 User.belongsToMany(Follower, { through: UserFollower });
 Follower.belongsToMany(User, { through: UserFollower });

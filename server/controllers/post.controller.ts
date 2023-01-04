@@ -11,6 +11,28 @@ interface Post {
     like: number
 }
 
+export const getPost = async (req: Request, res: Response) => {
+    const { postId } = req.params;
+
+    if (!postId) return res.status(400).send('Missing data');
+
+    const post = await Post.findOne({ where: { postId: postId }});
+
+    return res.status(200).send(post);
+}
+
+export const getPostsFromUser = async (req: Request, res: Response) => {
+    const { userId } = req.params;
+
+    if(!userId) return res.status(400).send('Missing data');
+
+    const user = await User.findOne({ where: { userId: userId}});
+    if (!user) return res.status(404).send('User was not found');
+    const posts = await Post.findAll({ where: { usersTableId: user.dataValues.id }});
+
+    return res.status(200).send(posts);
+}
+
 export const createPost = async (req: Request, res: Response) => {
     const data = req.body;
 
@@ -30,7 +52,7 @@ export const createPost = async (req: Request, res: Response) => {
         picture: data.picture,
         description: data.description,
         like: data.like,
-        userId: user.id
+        usersTableId: user.id
     });
 
     await Post.sync();

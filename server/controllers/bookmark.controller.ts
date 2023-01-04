@@ -2,6 +2,16 @@ import { Request, Response } from "express";
 
 const Bookmark = require('../model/bookmark.model');
 
+export const getBookmark = async (req: Request, res: Response) => {
+    const { bookmarkId } = req.params;
+
+    if (!bookmarkId) return res.status(400).send('Missing datat');
+
+    const bookmark = await Bookmark.findOne({ where: { bookmarkId: bookmarkId }});
+
+    return res.status(200).send(bookmark);
+}
+
 export const newBookmark = async (req: Request, res: Response) => {
     const data = req.body;
 
