@@ -7,10 +7,10 @@ import { ColoredButtonProps } from '../../models/ColoredButtonProps';
 
 const ColoredButton = (props:ColoredButtonProps) => {
 
-    const {title} = props;
+    const {title, onPress} = props;
 
     return (
-        <Motion.Pressable style={styles.container} >
+        <Motion.Pressable style={styles.container} onPress={onPress} >
             <Motion.View
                 style={styles.view}
                 whileTap={{ y: 20 }}

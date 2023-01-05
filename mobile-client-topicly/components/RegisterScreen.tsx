@@ -35,7 +35,7 @@ const genButtons = () => {
 
 const RegisterScreen = ({ navigation }: any) => {
 
-  const buttonProps: ColoredButtonProps = { title: "Register", onPress: () => { } }
+  const buttonProps: ColoredButtonProps = { title: "Register", onPress: () => { navigation.navigate("home"); } }
 
   return (
     <Motion.View

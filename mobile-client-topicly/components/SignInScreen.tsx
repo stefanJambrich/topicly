@@ -28,7 +28,12 @@ const genButtons = () => {
 }
 
 const SignInScreen = ({ navigation }: any) => {
-  const buttonProps: ColoredButtonProps = { title: "Sign In", onPress: () => { } }
+
+  const onPress=()=>{
+    navigation.navigate("home")
+  }
+
+  const buttonProps: ColoredButtonProps = { title: "Sign In", onPress: onPress }
 
   return (
     <Motion.View
