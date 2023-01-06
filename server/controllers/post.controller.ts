@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 
 const Post = require('../model/post.model');
 const User = require('../model/user.model');
+const Follower = require('../model/follower.model');
+const UserFollower = require('../model/userFollower.model');
 
 interface Post {
     postId: string,
@@ -31,6 +33,26 @@ export const getPostsFromUser = async (req: Request, res: Response) => {
     const posts = await Post.findAll({ where: { usersTableId: user.dataValues.id }});
 
     return res.status(200).send(posts);
+}
+
+export const getFeed = async (req: Request, res: Response) => {
+    const { userId } = req.body;
+    const posts = [];
+    
+    if(!userId) return res.status(400).send('Missing data');
+
+    const currUser = await User.findOne({ where: { userId: userId}});
+    if(!currUser) return res.status(404).send('This user doesnt exist');
+    
+    const followers = await UserFollower.findAll({ where: { usersTableId: currUser.dataValues.id }});
+    
+    for (let i = 0; i < followers.length; i++) {
+        const follower = await Follower.findOne({ where: { id: followers[i].dataValues.followerEntityId }, include: User });
+        const followerPosts = await Post.findAll({ where: { usersTableId: follower.usersTable.dataValues.id }});
+
+        posts.push(...followerPosts);
+        return res.status(200).send(posts);
+    }
 }
 
 export const createPost = async (req: Request, res: Response) => {

@@ -16,6 +16,7 @@ const searchRouter = require('./routes/search.route');
 const userRouter = require('./routes/user.route');
 const bookmarkRouter = require('./routes/bookmark.route');
 const followerRouter = require('./routes/follower.route');
+const storyRouter = require('./routes/story.route');
 
 const Follower = require('./model/followers.model');
 const User = require('./model/user.model');
@@ -26,13 +27,14 @@ app.use(cookieParser());
 
 app.use('/api/auth', authRouter);
 
-app.use(authorize);
+//app.use(authorize);
 
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
 app.use('/api/search', searchRouter);
 app.use('/api/bookmark', bookmarkRouter);
 app.use('/api/follow', followerRouter);
+app.use('/api/story', storyRouter);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
