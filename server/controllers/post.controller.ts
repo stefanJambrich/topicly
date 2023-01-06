@@ -43,7 +43,7 @@ export const getFeed = async (req: Request, res: Response) => {
 
     const currUser = await User.findOne({ where: { userId: userId}});
     if(!currUser) return res.status(404).send('This user doesnt exist');
-    
+
     const followers = await UserFollower.findAll({ where: { usersTableId: currUser.dataValues.id }});
     
     for (let i = 0; i < followers.length; i++) {
@@ -71,7 +71,7 @@ export const createPost = async (req: Request, res: Response) => {
 
     const post = await Post.create({
         title: data.title,
-        picture: data.picture,
+        picture: req.file?.originalname,
         description: data.description,
         like: data.like,
         usersTableId: user.id
@@ -105,7 +105,6 @@ export const editPost = async (req: Request, res: Response) => {
     await Post.update({
         title: data.title ? data.title : post.title,
         description: data.decription ? data.decription : post.decription,
-        picture: data.picture ? data.picture : post.picture,
         like: data.like ? data.like : post.like
     }, {
         where: {

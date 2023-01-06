@@ -1,4 +1,4 @@
-import express, { Request, Response }  from "express";
+import express from "express";
 import { createStory } from "../controllers/story.controller";
 import { upload } from "../middleware/fileType.middleware";
 

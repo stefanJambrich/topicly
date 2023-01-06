@@ -17,7 +17,7 @@ export const createStory = async (req: Request, res: Response) => {
 
     if (!user) return res.status(400).send('Invalid user');
 
-    const post = await Story.create({
+    const story = await Story.create({
         picture: req.file?.originalname,
         usersTableId: user.dataValues.id
     });
