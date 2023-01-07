@@ -1,6 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 import { Motion } from "@legendapp/motion"
+
+// @ts-ignore
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
