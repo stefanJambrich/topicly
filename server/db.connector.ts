@@ -4,8 +4,9 @@ export const sequelize = new Sequelize(
     'topicly',
     `${process.env.DB_USERNAME}`,
     `${process.env.DB_PASS}`, {
-        host: 'localhost',
-        dialect: 'mysql',
+        host: '192.168.0.183',
+        port: 3386,
+        dialect: 'mariadb',
         dialectOptions: {
             ssl: false
         },

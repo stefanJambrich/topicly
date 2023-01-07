@@ -19,7 +19,7 @@ const followerRouter = require('./routes/follower.route');
 const storyRouter = require('./routes/story.route');
 const commentRouter = require('./routes/comment.route');
 
-const Follower = require('./model/followers.model');
+const Follower = require('./model/follower.model');
 const User = require('./model/user.model');
 
 app.use(express.json());
