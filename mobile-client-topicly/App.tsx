@@ -7,12 +7,15 @@ import Login from './components/Login';
 import RegisterScreen from './components/RegisterScreen';
 import SignInScreen from './components/SignInScreen';
 import Home from './components/Home';
+import Profile from './components/Profile';
+import Bookmarks from './components/bookmarks';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
+     
       <Stack.Navigator
        screenOptions={{
         headerShown: false
@@ -24,7 +27,9 @@ export default function App() {
         />
         <Stack.Screen name="register" component={RegisterScreen} />
         <Stack.Screen name="signIn" component={SignInScreen} />
-        <Stack.Screen name="home" component={Home} />
+        <Stack.Screen name="home" component={Home} options={{headerShown: false}} />
+        <Stack.Screen name="profile" component={Profile} options={{headerShown: false}} />
+        <Stack.Screen name="bookmark" component={Bookmarks} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

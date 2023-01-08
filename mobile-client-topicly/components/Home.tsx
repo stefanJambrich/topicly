@@ -1,8 +1,11 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
 import Navbar from './utils/Navbar';
 import TopiclyLoginLogo from './svgComponents/TopiclyLogo';
+import UserStoriesContainer from './utils/UserStoriesContainer';
+import Posts from './utils/Posts';
 
 // @ts-ignore
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -10,13 +13,15 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const Home = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
+       <StatusBar backgroundColor={'#2b2a2a'} hidden={false} style={'light'} />
+      <View style={styles.logo}>
+            <Text style={styles.logoText}>Topicly</Text>  
+      </View>
         <View style={styles.contentContainer}>
-            <View style={styles.logo}>
-              <Text style={styles.logoText}>Topicly</Text>
-                <View style={styles.logoAvatarContainer}>
-                  <Icon name="account" size={36} color="#fff" />
-                </View>
-            </View>
+            <ScrollView style={styles.scroll} contentContainerStyle={{alignItems: 'center' }}>
+              <UserStoriesContainer/>
+              <Posts/>
+            </ScrollView>
         </View>
        <Navbar navigation={navigation}/>
     </View>
@@ -29,34 +34,33 @@ const styles = StyleSheet.create({
       backgroundColor: '#1C1C1C',
       alignItems: 'center',
       justifyContent: 'center',
+      display:'flex',
     },
     text: {
       color: "#fff",
     },
     contentContainer:{
-        height:"90%",
+        height:"80%",
         width:"100%"
     },
     logo:{
         width:"100%",
-        marginLeft: 15,
-        marginTop: 25,
+        height: "8%",
         display: 'flex',
-        flexDirection:"row"
+        flexDirection:"row",
+        backgroundColor: "#2b2a2a",
+        justifyContent:"center",
+        alignItems:"center"
     },
     logoText:{
       color: "#fff",
+      textAlign:"center",
       fontSize: 35,
-      textAlign:"left",
     },
-    logoAvatarContainer:{
-      display: 'flex',
-        flexDirection:"row",
-      width: "100%",
-      justifyContent:"center",
-      alignItems:"center",
-      borderWidth: 5,
+    scroll: {
+      
     }
+    
   });
 
 export default Home
