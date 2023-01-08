@@ -27,7 +27,7 @@ export const login = async (req: Request, res: Response) => {
 
         const token = jwt.sign(user.dataValues, process.env.SECRET, { expiresIn: process.env.TOKEN_EXPIRATION });
 
-        res.status(200).cookie("token", token, {httpOnly: true}).send("Succesfully logged in");
+        res.status(200).cookie("token", token, {httpOnly: true}).send(user.dataValues);
     })
 
 }

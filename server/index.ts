@@ -23,7 +23,7 @@ const Follower = require('./model/follower.model');
 const User = require('./model/user.model');
 
 app.use(express.json());
-app.use(cors<Request>({ origin: `${process.env.ORIGIN}`, credentials: true }));
+app.use(cors<Request>({ origin: '*', credentials: true }));
 app.use(cookieParser());
 
 app.use('/api/auth', authRouter);
