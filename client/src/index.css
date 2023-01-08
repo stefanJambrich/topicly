@@ -5,7 +5,7 @@
 @layer base {
   :root {
     --primary-color: #1c1c1c;
-    --primary-accent-color: #2a2a2a;
+    --primary-accent-color: #242424;
     --primary-accent-2-color: #2f2f2f;
     --separataor-color: #444;
     --secondary-color: #d12d7b;
@@ -13,6 +13,7 @@
     --secondary-color-dark: #98128b;
     --current-text-color: #fff;
     --accent-text-color: #bbb;
+    --accent-2-text-color: #949494;
   }
 
   .theme-dark {
@@ -64,3 +65,4 @@
   box-sizing: border-box;
   overflow: hidden;
 }
+

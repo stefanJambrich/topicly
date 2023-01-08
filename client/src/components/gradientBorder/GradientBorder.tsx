@@ -1,8 +1,8 @@
 import React from "react";
-import { LayoutProps } from "../../interfaces/LayoutProps.interface";
+import { ElementProps, LayoutProps } from "../../interfaces/LayoutProps.interface";
 
-const GradientBorder = ({ children, className }: LayoutProps) => {
-  return <div className={`p-[1px] rounded-xl bg-gradient ${className}`}>{children}</div>;
+const GradientBorder = ({ children, className, style }: ElementProps) => {
+  return <div className={`${className} p-[1px] bg-gradient z-10 `} style={style}>{children}</div>;
 };
 
 export default GradientBorder;

@@ -1,7 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { HomePage, LoginPage, UserPage } from "./pages";
-import { Main, Navbar, SideBar } from "./components";
+import { HomePage, AuthPage, UserPage } from "./pages";
+
+export const BASE_URL = "https://topicly.backend.thecrimsonbaron.com";
 
 function App() {
   return (
@@ -10,8 +11,8 @@ function App() {
     >
       <Routes>
         <Route index element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<LoginPage />} />
+        <Route path="/login" element={<AuthPage />} />
+        <Route path="/register" element={<AuthPage />} />
         <Route path="/:userId" element={<UserPage />} />
       </Routes>
     </div>
