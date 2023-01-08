@@ -1,5 +1,8 @@
 import React from "react";
-import { LayoutProps } from "../../interfaces/LayoutProps.interface";
+import {
+  ElementProps,
+  LayoutProps,
+} from "../../interfaces/LayoutProps.interface";
 import { HiHome } from "react-icons/hi";
 import {
   IoIosSend,
@@ -10,32 +13,27 @@ import {
 import { IoSettingsSharp } from "react-icons/io5";
 import "./style.css";
 
-const Navbar = ({ span }: LayoutProps) => {
+const Navbar = ({ className }: ElementProps) => {
   return (
     <nav
-      className="flex flex-col justify-between py-4 px-4
-    border-r-2 border-separator"
+      className={`${className} flex flex-col justify-between py-4 px-4
+    border-r-2 border-separator overflow-visible`}
     >
       <img
         src="/avatar.jpg"
         alt="avatar.jpg"
         className="rounded-full aspect-square w-12 flex self-center"
       />
-      <div className="flex flex-col self-center gap-24 relative">
+      <div className="flex flex-col self-center gap-24 relative overflow-visible">
         <div className="flex flex-col gap-5">
           <HiHome size={30} className="text-current nav-selected" />
           <IoIosSend size={30} className="text-current" />
         </div>
 
-        <div className="absolute top-1/2 left-7 -translate-y-1/2 rounded-full">
-          <div
-            className="rounded-full bg-gradient p-3
-            grid place-items-center"
-          >
+        <div id="search-icon" className="absolute top-1/2 -translate-y-1/2 left-7 rounded-full overflow-visible">
+          <div className="bg-gradient p-3 rounded-full">
             <IoIosSearch size={30} className="text-current" />
           </div>
-
-          <div id="search-icon-outline" className="rounded-full"></div>
         </div>
 
         <div className="flex flex-col gap-5">

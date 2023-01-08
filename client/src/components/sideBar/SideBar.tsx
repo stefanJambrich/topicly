@@ -1,9 +1,9 @@
 import React from "react";
-import { LayoutProps } from "../../interfaces/LayoutProps.interface";
+import { ElementProps, LayoutProps } from "../../interfaces/LayoutProps.interface";
 
-const SideBar = ({ span, children }: LayoutProps) => {
+const SideBar = ({ className, children }: ElementProps) => {
   return (
-    <aside className="flex-1/2">{children}</aside>
+    <aside className={`${className} h-min-full`}>{children}</aside>
   );
 };
 

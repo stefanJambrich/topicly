@@ -17,9 +17,12 @@ module.exports = {
       },
       textColor: {
         current: "var(--current-text-color)",
-        accent: "var(--accent-text-color)"
+        "current-accent": "var(--accent-text-color)",
+        "current-accent-2": "var(--accent-2-text-color)"
       }
     }
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
 }

@@ -1,9 +1,9 @@
 import React from "react";
-import { LayoutProps } from "../../interfaces/LayoutProps.interface";
+import { ElementProps, LayoutProps } from "../../interfaces/LayoutProps.interface";
 
-const Main = ({ children }: LayoutProps) => {
+const Main = ({ className, children }: ElementProps) => {
   return (
-    <main className="flex-auto">{children}</main>
+    <main className={`${className} flex-auto `}>{children}</main>
   );
 };
 

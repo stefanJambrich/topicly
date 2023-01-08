@@ -1,0 +1,38 @@
+#waves-1 {
+  position: absolute;
+  left: -1px;
+  top: 668.28px;
+  width: 1877px;
+  height: 156.37px;
+  background: #d22e7b;
+  background-blend-mode: normal;
+}
+
+#waves-2 {
+  position: absolute;
+  left: 0px;
+  top: 541.47px;
+  width: 1877px;
+  height: 284.53px;
+  background: #b00f86;
+  background-blend-mode: normal;
+}
+
+#waves-3 {
+  position: absolute;
+  left: 0px;
+  top: 445.56px;
+  width: 1877px;
+  height: 380.44px;
+  background: #830891;
+  background-blend-mode: normal;
+}
+#shape {
+  position: absolute;
+  left: -1px;
+  top: 668.28px;
+  width: 1877px;
+  height: 156.37px;
+  background: #aaaaaa;
+  background-blend-mode: normal;
+}
