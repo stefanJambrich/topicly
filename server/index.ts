@@ -1,4 +1,4 @@
-import express, { Express } from 'express';
+import express, { Express, Request } from 'express';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -23,7 +23,7 @@ const Follower = require('./model/followers.model');
 const User = require('./model/user.model');
 
 app.use(express.json());
-app.use(cors());
+app.use(cors<Request>({ origin: `${process.env.ORIGIN}`, credentials: true }));
 app.use(cookieParser());
 
 app.use('/api/auth', authRouter);
