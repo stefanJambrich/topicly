@@ -51,7 +51,7 @@ const RootQuery = new GraphQLObjectType({
             resolve(parent: any, args: any) {
                 return Bookmark.findAll();
             }
-        }
+        },
     }
 })
 

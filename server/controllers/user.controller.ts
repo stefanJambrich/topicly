@@ -29,7 +29,8 @@ export const editUser = async(req: Request, res: Response) => {
         firstName: data.firstName,
         lastName: data.lastName,
         nickname: data.nickaname,
-        description: data.description
+        description: data.description,
+        picture: req.file?.originalname
     }, {
         where: {
             postId: userId

@@ -1,8 +1,9 @@
 import express  from "express";
-import { deleteBookmark, newBookmark } from "../controllers/bookmark.controller";
+import { deleteBookmark, getBookmark, newBookmark } from "../controllers/bookmark.controller";
 
 const router = express.Router();
 
+router.get('/:bookmarkId', getBookmark);
 router.post('/new', newBookmark);
 router.delete('/:bookmarkId', deleteBookmark);
 

@@ -1,7 +1,8 @@
-import { sequelize } from '../db.connector';
+import { INTEGER } from "sequelize";
+import { sequelize } from "../db.connector";
 
-const Followers = sequelize.define('followers', {}, {
+const Follower = sequelize.define('followerEntity', {}, {
     timestamps: false
 })
 
-module.exports = Followers;
+module.exports = Follower;
