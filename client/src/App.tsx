@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { HomePage, AuthPage, UserPage } from "./pages";
 
 export const BASE_URL = "https://topicly.backend.thecrimsonbaron.com";
+// export const BASE_URL = "http://localhost:8080";
 
 function App() {
   return (

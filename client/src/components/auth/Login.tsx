@@ -1,29 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connector } from "../../helpers/connection";
-import { redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import axios from "axios";
+import { getCookie } from "../../helpers/cookies";
 
 const Login = () => {
   const emailRef = React.useRef<HTMLInputElement>(null);
   const passwordRef = React.useRef<HTMLInputElement>(null);
+  const [redirectHome, setRedirectHome] = React.useState(false);
 
   const handleLogin = async () => {
-    fetch("https://topicly.backend.thecrimsonbaron.com/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "same-origin",
-      body: JSON.stringify({
-        email: emailRef.current?.value,
-        password: passwordRef.current?.value,
-      }),
-    }).then((res) => {
-      console.log(res.headers);
+    // axios.defaults.withCredentials = true;
+    const res = await connector.post("/auth/login", {
+      email: emailRef.current?.value,
+      password: passwordRef.current?.value,
     });
+    setRedirectHome(true);
   };
 
   return (
     <>
+      {redirectHome ? <Navigate to="/" /> : ""}
       <input
         type="email"
         placeholder="Email"

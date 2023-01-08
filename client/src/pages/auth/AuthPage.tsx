@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import GradientBorder from "../../components/gradientBorder/GradientBorder";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { connector } from "../../helpers/connection"
 import {Login, Register} from "../../components/auth/";
 
 const AuthPage = () => {
   const { pathname } = useLocation();
+  
 
   return (
     <div className="grid place-content-center h-screen w-screen">
@@ -13,7 +14,7 @@ const AuthPage = () => {
       <p className="right-[40rem] top-[15rem] bg-text-login">Topicly</p>
 
       <GradientBorder className="w-80 rounded-xl">
-        <form className="px-5 py-3 bg-primary-accent-2 rounded-xl" action="#">
+        <div className="px-5 py-3 bg-primary-accent-2 rounded-xl">
           <h2 className="text-center my-3 font-semibold text-4xl text-transparent bg-clip-text bg-gradient">
             TOPICLY
           </h2>
@@ -44,7 +45,7 @@ const AuthPage = () => {
 
             {pathname === "/register" ? <Register /> : ""}
           </div>
-        </form>
+        </div>
       </GradientBorder>
     </div>
   );
