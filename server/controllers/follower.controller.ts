@@ -6,10 +6,11 @@ const UserFollower = require('../model/userFollower.model');
 
 export const follow = async (req: Request, res: Response) => {
     const data = req.body;
+    const userId = req.cookies.userId;
 
-    if (!data.userId || !data.followerId) return res.status(400).send('Missing data');
+    if (!data.followerId) return res.status(400).send('Missing data');
 
-    const user = await User.findOne({where: { userId: data.userId }});
+    const user = await User.findOne({where: { userId: userId }});
     if(!user) return res.status(404).send('User was not found')
 
     const userF = await User.findOne({ where: { userId: data.followerId }});
@@ -37,8 +38,8 @@ export const follow = async (req: Request, res: Response) => {
     return res.status(200).send("Succesfully followed");
 }
 
-export const getFollowersOfUser = async (req: Request, res: Response) => {
-    const { userId } = req.params;
+export const getFollowing = async (req: Request, res: Response) => {
+    const userId = req.cookies.userId;
     const followers = [];
 
     if(!userId) return res.status(400).send('Missing params');

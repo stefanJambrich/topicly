@@ -1,9 +1,9 @@
 import express  from "express";
-import { follow, getFollowersOfUser } from "../controllers/follower.controller";
+import { follow, getFollowing } from "../controllers/follower.controller";
 
 const router = express.Router();
 
-router.get('/:userId', getFollowersOfUser);
+router.get('/following', getFollowing);
 router.post('/', follow);
 
 module.exports = router;

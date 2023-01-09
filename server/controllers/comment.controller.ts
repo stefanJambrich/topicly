@@ -25,8 +25,9 @@ export const getCommentsForPost = async (req: Request, res: Response) => {
 export const createComment = async (req: Request, res: Response) => {
     const data = req.body as RequestType;
     if(!data) return res.status(400).send('Missing data');
+    const userId = req.cookies.userId;
 
-    const user = await User.findOne({ where: { userId: data.userId }});
+    const user = await User.findOne({ where: { userId: userId }});
     const post = await Post.findOne({ where: { postId: data.postId }});
 
     if(!user || !post) return res.status(404).send('User or post not found');

@@ -24,9 +24,7 @@ export const getPost = async (req: Request, res: Response) => {
 }
 
 export const getPostsFromUser = async (req: Request, res: Response) => {
-    const { userId } = req.params;
-
-    if(!userId) return res.status(400).send('Missing data');
+    const userId = req.cookies.userId;
 
     const user = await User.findOne({ where: { userId: userId}});
     if (!user) return res.status(404).send('User was not found');
@@ -36,10 +34,8 @@ export const getPostsFromUser = async (req: Request, res: Response) => {
 }
 
 export const getFeed = async (req: Request, res: Response) => {
-    const { userId } = req.body;
+    const userId = req.cookies.userId;
     const posts = [];
-    
-    if(!userId) return res.status(400).send('Missing data');
 
     const currUser = await User.findOne({ where: { userId: userId}});
     if(!currUser) return res.status(404).send('This user doesnt exist');
@@ -57,13 +53,13 @@ export const getFeed = async (req: Request, res: Response) => {
 
 export const createPost = async (req: Request, res: Response) => {
     const data = req.body;
+    const userId = req.cookies.userId;
 
     if (!data) return res.status(400).send('Missing post content');
-    if (!data.userId) return res.status(400).send('Missing user UUID');
 
     const user = await User.findOne({
         where: {
-            userId: data.userId
+            userId: userId
         }
     });
 

@@ -11,9 +11,16 @@ interface IUser {
     description: string
 }
 
+export const getUser = async (req: Request, res: Response) => {
+    const userId = req.cookies.userId;
+
+    const user = await User.findOne({ userId: userId });
+    return res.status(200).send(user);
+}
+
 export const editUser = async(req: Request, res: Response) => {
     const data = req.body as IUser;
-    const {userId} = req.params;
+    const userId = req.cookies.userId;
 
     if (!data) return res.status(400).send('No data were sent');
     

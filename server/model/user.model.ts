@@ -19,7 +19,6 @@ const User = sequelize.define("usersTable", {
     nickname: STRING(64),
     email: STRING(255),
     password: STRING(255),
-    picture: STRING,
     description: TEXT
 }, {
     timestamps: false
