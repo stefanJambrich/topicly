@@ -1,12 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View, Pressable, ScrollView, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-
+import BottomSheet from '@gorhom/bottom-sheet';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const UserStoriesContainer = () => {
 
+    
 
     const renderStories = () => {
 

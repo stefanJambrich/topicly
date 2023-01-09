@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Motion } from "@legendapp/motion"
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -8,16 +8,16 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 
-const Navbar = ({ navigation }: any) => {
+const Navbar = ({ navigation, onPressSpecial }: any) => {
 
     const RenderButtons = () => {
 
         const buttons = [
             {
                 key: 1,
-                icon: "select-search",
+                icon: "account-search",
                 isFocussed: false,
-                pointsTo: "login"
+                pointsTo: "search"
             },
             {
                 key: 2,
@@ -27,12 +27,18 @@ const Navbar = ({ navigation }: any) => {
             },
             {
                 key: 3,
+                icon: "special",
+                isFocussed: false,
+                pointsTo: "home"
+            },
+            {
+                key: 4,
                 icon: "bookmark",
                 isFocussed: false,
                 pointsTo: "bookmark"
             },
             {
-                key: 3,
+                key: 5,
                 icon: "account-circle",
                 isFocussed: false,
                 pointsTo: "profile"
@@ -43,7 +49,8 @@ const Navbar = ({ navigation }: any) => {
         return (
             buttons.map((button) => {
                 return (
-                    <Motion.Pressable onPress={() => {
+
+                    button.icon != "special" ? <Motion.Pressable onPress={() => {
                         button.isFocussed = true;
                         navigation.navigate(button.pointsTo)
                     }}
@@ -60,7 +67,23 @@ const Navbar = ({ navigation }: any) => {
                         >
                             <Icon name={button.icon} size={36} color={button.isFocussed == false ? "#fff" : "#EA539A"} />
                         </Motion.View>
-                    </Motion.Pressable>
+                    </Motion.Pressable> :
+                        <View style={{ width: 50, height: 50 }}>
+                            <Pressable onPress={onPressSpecial}>
+                                <LinearGradient
+                                    colors={['#EA539A',
+                                        '#D22E7B',
+                                        '#830891',]}
+                                    locations={[0.19, 0.50, 0.96]}
+                                    start={{ x: 0.4, y: 0 }}
+                                    end={{ x: 0.8, y: 1.1 }}
+                                    style={{ width: "100%", height: "100%", borderRadius: 100, justifyContent: "center", alignItems: "center" }}
+                                >
+                                    <Icon name={"plus"} size={40} color={button.isFocussed == false ? "#fff" : "#EA539A"} />
+                                </LinearGradient>
+                            </Pressable>
+                        </View>
+
                 )
             })
         )

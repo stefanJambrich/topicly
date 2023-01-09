@@ -1,13 +1,14 @@
 import React from 'react'
 // @ts-ignore
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Pressable, StyleSheet, Text, View, TextInput } from 'react-native';
+import { Pressable, StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import { Motion } from "@legendapp/motion"
 
 import ColoredButton from './utils/ColoredButton';
 import ColoredInput from './utils/ColoredInput';
 import { ColoredButtonProps } from '../models/ColoredButtonProps';
 import { ColoredInputProps } from '../models/ColoredInputProps';
+import Posts from './utils/Posts';
 
 
 const genButtons = () => {
@@ -42,6 +43,19 @@ const Bookmarks = ({ navigation }: any) => {
       <Motion.View
         style={styles.viewController}
       >
+        <Text style={styles.registerText}>
+          Bookmarks
+        </Text>
+        <ScrollView style={styles.inputContainer} contentContainerStyle={{alignItems:"center" }}>
+              <Posts/>
+              <Posts/>
+              <Posts/>
+              <Posts/>
+              <Posts/>
+              <Posts/>
+              <Posts/>
+              <Posts/>
+        </ScrollView>
         
       </Motion.View>
       
@@ -78,8 +92,8 @@ const styles = StyleSheet.create({
     marginLeft: "10%"
   },
   viewController: {
-    height: "85%",
-    width: "85%",
+    height: "95%",
+    width:"100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
@@ -90,7 +104,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "left",
     marginTop: "10%",
-    marginRight: 65
+    marginRight: "25%",
   },
   registerUnderText: {
     color: "rgba(255,255,255,0.56)",
@@ -110,13 +124,11 @@ const styles = StyleSheet.create({
   },
   backButton: {
     marginRight: "auto",
-    marginLeft: "5%"
+    marginLeft: "5%",
+    marginTop: "25%"
   },
   inputContainer: {
     marginTop: 25,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center"
   }
 
 });
