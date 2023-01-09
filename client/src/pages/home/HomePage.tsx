@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navbar, SideBar, Main } from "../../components";
 import { Layout } from "../../components";
 import GradientBorder from "../../components/gradientBorder/GradientBorder";
@@ -8,6 +8,7 @@ import { GrEmoji } from "react-icons/gr";
 import { IoIosSend, IoIosBookmark } from "react-icons/io";
 import { FaRegHeart } from "react-icons/fa";
 import { ImBin } from "react-icons/im";
+import { connector } from "../../helpers/connection";
 
 const posts = [
   {
@@ -203,6 +204,21 @@ const recomendedUsers = [
 ];
 
 const HomePage = () => {
+  useEffect(() => {
+    try {
+      // Misto GET ma byt post, protoze stefan tam chce body a na servery ma GET, opiceee, takze zadnej feed. Zkousel jsem to dat na POST a stejne to nejde
+      connector
+        .get("/post/feed", {
+          userId: localStorage.getItem("userId"),
+        })
+        .then((res: any) => {
+          console.log(res.data);
+        });
+    } catch (error: any) {
+      console.error(error);
+    }
+  }, []);
+
   return (
     <Layout>
       <Navbar className="hidden md:flex" />
@@ -210,8 +226,8 @@ const HomePage = () => {
       <Main className="ml-14 mr-4 overflow-scroll scrollbar-hide py-3 ">
         <Input />
         <div className="posts grid gap-6">
-          {posts.map((post) => (
-            <Post key={post.postId} {...post} />
+          {posts.map((post, i) => (
+            <Post key={i} {...post} />
           ))}
         </div>
       </Main>
@@ -221,8 +237,8 @@ const HomePage = () => {
           <div className="rounded-xl w-full h-full px-3 py-2 bg-primary-accent">
             <h3>Trending</h3>
             <div>
-              {trending.map((tag) => (
-                <Tag key={tag.id} {...tag} />
+              {trending.map((tag, i) => (
+                <Tag key={i} {...tag} />
               ))}
             </div>
           </div>
@@ -231,8 +247,8 @@ const HomePage = () => {
           <div className="rounded-xl w-full h-full px-3 py-2 bg-primary-accent">
             <h3>Recomended for you</h3>
             <div>
-              {recomendedUsers.map((user) => (
-                <RecomendedUser key={user.id} {...user} />
+              {recomendedUsers.map((user, i) => (
+                <RecomendedUser key={i} {...user} />
               ))}
             </div>
           </div>
@@ -328,8 +344,8 @@ const Post = ({
         <GradientBorder className="h-full rounded-xl">
           <div className="rounded-xl bg-primary-accent w-full h-full  flex flex-col justify-between">
             <div className="comments-messages flex flex-col gap-3 px-3 py-4">
-              {comments.map((comment: any) => (
-                <Comment key={comment.commentId} {...comment} />
+              {comments.map((comment: any, i: number) => (
+                <Comment key={i} {...comment} />
               ))}
             </div>
             <div className="comments-new relative top-[1px]">

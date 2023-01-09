@@ -1,21 +1,27 @@
 import React, { useEffect } from "react";
 import { connector } from "../../helpers/connection";
 import { Navigate } from "react-router-dom";
-import axios from "axios";
-import { getCookie } from "../../helpers/cookies";
 
 const Login = () => {
   const emailRef = React.useRef<HTMLInputElement>(null);
   const passwordRef = React.useRef<HTMLInputElement>(null);
   const [redirectHome, setRedirectHome] = React.useState(false);
+  const [message, setMessage] = React.useState<string | null>(null);
 
   const handleLogin = async () => {
-    // axios.defaults.withCredentials = true;
-    const res = await connector.post("/auth/login", {
-      email: emailRef.current?.value,
-      password: passwordRef.current?.value,
-    });
-    setRedirectHome(true);
+    try {
+      const res = await connector.post("/auth/login", {
+        email: emailRef.current?.value,
+        password: passwordRef.current?.value,
+      });
+      console.log(res.data);
+      localStorage.setItem("userId", res.data.userId);
+      localStorage.setItem("username", res.data.nickname);
+      localStorage.setItem("picture", res.data.picture);
+      setRedirectHome(true);
+    } catch (err: any) {
+      setMessage(err.response.data);
+    }
   };
 
   return (
@@ -36,6 +42,7 @@ const Login = () => {
         required
         ref={passwordRef}
       />
+      {message ? <p className="text-red-500 text-center">{message}</p> : ""}
       <button
         type="submit"
         className="button-login px-16 bg-gradient w-fit mx-auto"

@@ -7,6 +7,7 @@ const app: Express = express();
 const port = process.env.PORT;
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+app.use(express.static('public'))
 
 const db = require('./db.connector');
 const authorize = require('./middleware/authorize.middleware')
@@ -19,11 +20,11 @@ const followerRouter = require('./routes/follower.route');
 const storyRouter = require('./routes/story.route');
 const commentRouter = require('./routes/comment.route');
 
-const Follower = require('./model/followers.model');
+const Follower = require('./model/follower.model');
 const User = require('./model/user.model');
 
 app.use(express.json());
-app.use(cors<Request>({ origin: '*', credentials: true }));
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(cookieParser());
 
 app.use('/api/auth', authRouter);
