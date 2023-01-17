@@ -2,10 +2,11 @@ import { UUID, UUIDV4 } from 'sequelize';
 import { sequelize } from '../db.connector';
 
 const Bookmark = sequelize.define('bookmark', {
-    bookmarkId: {
+    id: {
         type: UUID,
         defaultValue: UUIDV4,
-        allowNull: false
+        allowNull: false,
+        primaryKey: true
     },
 }, {
     timestamps: false

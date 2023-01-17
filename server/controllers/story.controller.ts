@@ -20,10 +20,7 @@ export const getStories = async (req: Request, res: Response) => {
     
     if(!userId) return res.status(400).send('Missing data');
 
-    const currUser = await User.findOne({ where: { userId: userId}});
-    if(!currUser) return res.status(404).send('This user doesnt exist');
-
-    const followers = await UserFollower.findAll({ where: { usersTableId: currUser.dataValues.id }});
+    const followers = await UserFollower.findAll({ where: { usersTableId: userId }});
     
     for (let i = 0; i < followers.length; i++) {
         const follower = await Follower.findOne({ where: { id: followers[i].dataValues.followerEntityId }, include: User });
@@ -40,17 +37,9 @@ export const createStory = async (req: Request, res: Response) => {
 
     if (!data) return res.status(400).send('Missing story content');
 
-    const user = await User.findOne({
-        where: {
-            userId: userId
-        }
-    });
-
-    if (!user) return res.status(400).send('Invalid user');
-
     const story = await Story.create({
         picture: req.file?.originalname,
-        usersTableId: user.dataValues.id
+        usersTableId: userId
     });
 
     await Story.sync();

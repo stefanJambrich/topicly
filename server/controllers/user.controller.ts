@@ -23,14 +23,6 @@ export const editUser = async(req: Request, res: Response) => {
     const userId = req.cookies.userId;
 
     if (!data) return res.status(400).send('No data were sent');
-    
-    const user = await User.findOne({
-        where: {
-            postId: userId
-        }
-    });
-
-    if (!user) return res.status(404).send('Invalid user id');
 
     await User.update({
         firstName: data.firstName,
@@ -40,7 +32,7 @@ export const editUser = async(req: Request, res: Response) => {
         picture: req.file?.originalname
     }, {
         where: {
-            postId: userId
+            id: userId
         }
     })
 

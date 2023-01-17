@@ -16,7 +16,7 @@ export const getBookmark = async (req: Request, res: Response) => {
 export const getBookmarks = async (req: Request, res: Response) => {
     const userId = req.cookies.userId;
 
-    const user = await User.findOne({ where: { userId: userId }});
+    const user = await User.findOne({ where: { id: userId }});
     const bookmarks = await Bookmark.findAll({ where: { usersTableId: user.dataValues.id }});
 
     return res.status(200).send(bookmarks);
@@ -27,7 +27,6 @@ export const newBookmark = async (req: Request, res: Response) => {
     const userId = req.cookies.userId;
 
     if (!data.postId) return res.status(400).send('Missing data');
-    
 
     const bookmark = await Bookmark.findOne({
         where: {
@@ -38,7 +37,7 @@ export const newBookmark = async (req: Request, res: Response) => {
     if (bookmark) return res.status(409).send('Bookmark already exists');
 
     await Bookmark.create({
-        userId: userId,
+        usersTableId: userId,
         postId: data.postId
     });
 

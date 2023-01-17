@@ -27,13 +27,12 @@ export const createComment = async (req: Request, res: Response) => {
     if(!data) return res.status(400).send('Missing data');
     const userId = req.cookies.userId;
 
-    const user = await User.findOne({ where: { userId: userId }});
     const post = await Post.findOne({ where: { postId: data.postId }});
 
-    if(!user || !post) return res.status(404).send('User or post not found');
+    if(!post) return res.status(404).send('Post not found');
 
     await Comment.create({
-        userId: user.dataValues.id,
+        userId: userId,
         postId: post.dataValues.id,
         text: data.text
     });

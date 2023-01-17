@@ -9,10 +9,11 @@ const UserFollower = require('./userFollower.model');
 const Comment = require('./comment.model');
 
 const User = sequelize.define("usersTable", {
-    userId: {
+    id: {
         type: UUID,
         defaultValue: UUIDV4,
-        allowNull: false
+        allowNull: false,
+        primaryKey: true
     },
     firstName: STRING(64),
     lastName: STRING(64),
